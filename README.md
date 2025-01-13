@@ -38,8 +38,8 @@ A Java-based CCTV application designed to capture video from multiple IP cameras
 Clone this repository to your local machine using the following command:
 
 ```bash
-git clone https://github.com/yourusername/cctv-application.git
-cd cctv-application
+git clone https://github.com/Mark-Masomi/CCTV.git
+cd CCTV
 ```
 
 ### Building the Project
