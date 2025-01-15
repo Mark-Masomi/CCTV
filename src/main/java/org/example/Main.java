@@ -1,5 +1,8 @@
 package org.example;
 
+import org.iu.gps.GPSDriver;
+import org.iu.gps.GPSInfo;
+import org.iu.gps.GPSListener;
 import org.json.JSONObject;
 
 import java.net.URI;
@@ -42,7 +45,7 @@ public class Main {
         }
 
 
-        /*try {
+        try {
             // Create a GPS driver instance
             GPSDriver gpsDriver = new GPSDriver();
 
@@ -66,7 +69,7 @@ public class Main {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
         }
 
 
