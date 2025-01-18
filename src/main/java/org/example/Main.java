@@ -41,6 +41,34 @@ public class Main {
             System.out.println("Error: " + e.getMessage());
         }
 
+
+        /*try {
+            // Create a GPS driver instance
+            GPSDriver gpsDriver = new GPSDriver();
+
+            // Add the listener to the driver
+            gpsDriver.addGPSListener(new GPSListener() {
+                @Override
+                public void gpsEvent(GPSInfo gpsInfo) {
+
+                }
+
+                // Ensure method signature matches the interface
+                public void gpsData(GPSInfo data) {
+                    // Assuming GPSInfo has methods getLatitude() and getLongitude()
+                    System.out.println("Latitude: " + data.latitude);
+                    System.out.println("Longitude: " + data.longitude);
+                }
+            });
+
+            // Start listening for GPS data
+            gpsDriver.run();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
         }
+
+
 
 }
