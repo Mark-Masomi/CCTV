@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id ("application")
 }
 
 group = "org.example"
@@ -17,8 +18,13 @@ dependencies {
     implementation("io.ipinfo:ipinfo-api:3.0.0")
     implementation("org.apache.httpcomponents.client5:httpclient5:5.4.1")
     implementation ("org.json:json:20210307")
+    implementation("com.maxmind.geoip2:geoip2:4.2.1")
 }
 
 tasks.test {
     useJUnitPlatform()
+}
+
+application {
+    mainClass.set("org/example/Main")
 }
