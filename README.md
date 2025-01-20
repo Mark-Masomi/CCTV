@@ -13,7 +13,7 @@ A Java-based CCTV application designed to capture video from multiple IP cameras
 
 ## Requirements
 
-- **Java 11 or higher**
+- **Java 178 or higher**
 - **Gradle 5.0 or higher** for building the project
 - **OpenCV for Java** for video handling
 - **Java Sound API** for audio recording
