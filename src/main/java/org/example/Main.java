@@ -9,66 +9,49 @@ import java.net.http.HttpResponse;
 
 public class Main {
     public static void main(String[] args) {
-
-        try{
-
+        try {
             // Create an HttpClient instance
             HttpClient client = HttpClient.newHttpClient();
 
-            // Create the API request to ipinfo.io
-            HttpRequest requeast= HttpRequest.newBuilder()
-                    .uri(new URI("http://ipinfo.io/json")).build();
+            String apiKey = "AIzaSyAG5f3fb2p0ZoOP2J41KGkIziKSBDDq6gE";
+            String url = "https://www.googleapis.com/geolocation/v1/geolocate?key=" + apiKey;
 
-            //send request and get response
-            HttpResponse<String> response =client.send(requeast,HttpResponse.BodyHandlers.ofString());
+            // Create the API request to Google Geolocation API
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(url))
+                    .POST(HttpRequest.BodyPublishers.ofString("{}"))
+                    .header("Content-Type", "application/json")
+                    .build();
 
+            // Send request and get response
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            JSONObject json=new JSONObject(response.body());
+            // Print the raw response for debugging
+            System.out.println("Raw response: " + response.body());
 
-            String ip=json.getString("ip");
-            String city=json.getString("city");
-            String region=json.getString("region");
-            String country=json.getString("country");
-            String location=json.getString("loc");
+            JSONObject json = new JSONObject(response.body());
 
-            System.out.println("IP Address: " + ip);
-            System.out.println("City: " + city);
-            System.out.println("Region: " + region);
-            System.out.println("Country: " + country);
-            System.out.println("Location (lat, long): " + location);
+            // Check if the response contains an error
+            if (json.has("error")) {
+                JSONObject error = json.getJSONObject("error");
+                System.out.println("Error code: " + error.getInt("code"));
+                System.out.println("Error message: " + error.getString("message"));
+            } else if (json.has("location")) {
+                JSONObject location = json.getJSONObject("location");
+                double latitude = location.getDouble("lat");
+                double longitude = location.getDouble("lng");
+                double accuracy = json.getDouble("accuracy");
 
-        }catch (Exception e){
-            System.out.println("Error: " + e.getMessage());
-        }
-
-
-        /*try {
-            // Create a GPS driver instance
-            GPSDriver gpsDriver = new GPSDriver();
-
-            // Add the listener to the driver
-            gpsDriver.addGPSListener(new GPSListener() {
-                @Override
-                public void gpsEvent(GPSInfo gpsInfo) {
-
-                }
-
-                // Ensure method signature matches the interface
-                public void gpsData(GPSInfo data) {
-                    // Assuming GPSInfo has methods getLatitude() and getLongitude()
-                    System.out.println("Latitude: " + data.latitude);
-                    System.out.println("Longitude: " + data.longitude);
-                }
-            });
-
-            // Start listening for GPS data
-            gpsDriver.run();
+                System.out.println("Latitude: " + latitude);
+                System.out.println("Longitude: " + longitude);
+                System.out.println("Accuracy: " + accuracy + " meters");
+            } else {
+                System.out.println("Unexpected response format");
+            }
 
         } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
             e.printStackTrace();
-        }*/
         }
-
-
-
+    }
 }
