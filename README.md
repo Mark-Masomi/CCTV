@@ -1,4 +1,4 @@
-# CCTV Application((Jacky))
+# CCTV Application
 
 A Java-based CCTV application designed to capture video from multiple IP cameras, including old smartphones connected to the same network. The application supports recording video with timestamp metadata, audio recording, and GPS location embedding. This project is intended to provide a flexible and cost-effective security solution.
 
