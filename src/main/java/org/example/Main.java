@@ -2,9 +2,9 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-
-        CameraManager cameraManager = new CameraManager();
-        AudioManager audioManager = new AudioManager();
+        RecordingSession recordingSession=new RecordingSession();
+        CameraManager cameraManager = new CameraManager(recordingSession);
+        AudioManager audioManager = new AudioManager(recordingSession);
         VideoRecorder videoRecorder = new VideoRecorder(cameraManager, audioManager);
 
         // Start recording

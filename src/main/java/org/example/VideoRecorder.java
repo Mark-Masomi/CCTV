@@ -29,7 +29,6 @@ public class VideoRecorder {
         System.out.println("Recording started...");
     }
 
-    // Stop recording video and audio
     public void stopRecording() {
         if (!isRecording) {
             System.out.println("No recording in progress.");
@@ -44,10 +43,5 @@ public class VideoRecorder {
 
         isRecording = false;
         System.out.println("Recording stopped.");
-    }
-
-    // Check if recording
-    public boolean isRecording() {
-        return isRecording;
     }
 }

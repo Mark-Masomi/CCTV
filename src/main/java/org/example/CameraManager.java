@@ -5,15 +5,17 @@ import org.opencv.core.Size;
 import org.opencv.videoio.VideoCapture;
 import org.opencv.videoio.VideoWriter;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class CameraManager {
 
 
     private VideoCapture camera;
     private VideoWriter videoWriter;
     private boolean isRecording = false;
+    private RecordingSession recordingSession;
+
+    public CameraManager(RecordingSession recordingSession) {
+        this.recordingSession = recordingSession;
+    }
 
     // Start recording
     public void startRecording() {
@@ -29,9 +31,7 @@ public class CameraManager {
         double fps = camera.get(5); // CAP_PROP_FPS
 
         // Create a file name with timestamp
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-        String timestamp = sdf.format(new Date());
-        String fileName = "CCTV_Record_" + timestamp + ".avi";
+        String fileName = "CCTV_Record_" + recordingSession.getStartTimeFormatted() + ".avi";
 
         // Set up VideoWriter
         Size frameSize = new Size(frameWidth, frameHeight);
@@ -44,7 +44,7 @@ public class CameraManager {
         }
 
         isRecording = true;
-        System.out.println("Recording started...");
+        System.out.println("Recording started at " + recordingSession.getStartTimeFormatted() + "...");
 
         // Capture and write frames
         Mat frame = new Mat();
