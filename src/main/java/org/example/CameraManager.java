@@ -30,8 +30,8 @@ public class CameraManager {
         double frameHeight = camera.get(4); // CAP_PROP_FRAME_HEIGHT
         double fps = camera.get(5); // CAP_PROP_FPS
 
-        // Create a file name with timestamp
-        String fileName = "CCTV_Record_" + recordingSession.getStartTimeFormatted() + ".avi";
+        // Use the fileName generated earlier for the video file
+        String fileName = "CCTV_Record_" + recordingSession.getStartTimeFormatted() + ".avi";  // Safe filename format
 
         // Set up VideoWriter
         Size frameSize = new Size(frameWidth, frameHeight);
@@ -59,6 +59,7 @@ public class CameraManager {
 
         stopRecording();
     }
+
 
     // Stop recording
     public void stopRecording() {

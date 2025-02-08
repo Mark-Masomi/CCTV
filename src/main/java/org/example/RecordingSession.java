@@ -12,8 +12,13 @@ public class RecordingSession {
         this.startTimeMillis = System.currentTimeMillis();
 
         // Format the start time for display purposes
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
         this.startTimeFormatted = sdf.format(new Date(startTimeMillis));
+
+        // Generate a valid filename
+        String timestamp = sdf.format(new Date());
+        String fileName = "recording_" + timestamp + ".wav";  // Safe filename format
+
     }
 
     public long getStartTimeMillis() {

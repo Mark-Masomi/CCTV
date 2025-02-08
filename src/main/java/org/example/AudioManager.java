@@ -43,7 +43,9 @@ public class AudioManager {
             // Capture audio data and save it to a file (e.g., WAV format)
             Thread recordingThread = new Thread(() -> {
                 try {
-                    File audioFile = new File("recording_" + recordingSession.getStartTimeFormatted() + ".wav");
+                    // Use the generated file name for the audio file
+                    String fileName = "recording_" + recordingSession.getStartTimeFormatted() + ".wav";  // Safe filename format
+                    File audioFile = new File(fileName);  // Use fileName here
                     AudioInputStream audioStream = new AudioInputStream(targetDataLine);
                     AudioSystem.write(audioStream, AudioFileFormat.Type.WAVE, audioFile);
                 } catch (IOException e) {
@@ -56,6 +58,7 @@ public class AudioManager {
             e.printStackTrace();
         }
     }
+
 
     // Stop recording audio
     public void stopRecording() {

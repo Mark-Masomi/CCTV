@@ -1,11 +1,21 @@
 package org.example;
 
+import org.opencv.core.Core;
+
 public class Main {
     public static void main(String[] args) {
         RecordingSession recordingSession=new RecordingSession();
         CameraManager cameraManager = new CameraManager(recordingSession);
         AudioManager audioManager = new AudioManager(recordingSession);
         VideoRecorder videoRecorder = new VideoRecorder(cameraManager, audioManager);
+
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);  // Add this in your main method or a static block
+
+
+        // Initialize the GUI
+        RecordingGUI recordingGUI = new RecordingGUI();
+        recordingGUI.setVisible(true);
+
 
         // Start recording
         videoRecorder.startRecording();
