@@ -9,8 +9,13 @@ public class Main {
         AudioManager audioManager = new AudioManager(recordingSession);
         VideoRecorder videoRecorder = new VideoRecorder(cameraManager, audioManager);
 
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);  // Add this in your main method or a static block
+//
+        System.setProperty("java.library.path", "C:/Users/moinm/IdeaProjects/CCTV/src/main/resources/native/opencv_java4100.dll");
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);  // This loads the OpenCV library
 
+        // Now you can use OpenCV classes
+        System.out.println("OpenCV version: " + Core.getVersionString());
+//
 
         // Initialize the GUI
         RecordingGUI recordingGUI = new RecordingGUI();

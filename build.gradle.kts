@@ -3,6 +3,8 @@ plugins {
     id ("application")
 }
 
+
+
 group = "org.example"
 version = "1.0-SNAPSHOT"
 
@@ -25,6 +27,18 @@ tasks.test {
     useJUnitPlatform()
 }
 
+
+
+tasks.withType<JavaExec> {
+    jvmArgs("-Djava.library.path=${projectDir}/src/main/resources/native")
+}
+
+
 application {
     mainClass.set("org/example/Main")
 }
+
+
+
+
+
