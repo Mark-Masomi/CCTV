@@ -16,16 +16,27 @@ public class AudioManager {
     }
 
     // Set up the audio format
+//    private void setupAudioFormat() {
+//        audioFormat = new AudioFormat(
+//                AudioFormat.Encoding.PCM_SIGNED,
+//                44100.0F,
+//                16,
+//                2,
+//                4,
+//                44100.0F,
+//                false
+//        );
+//        info = new DataLine.Info(TargetDataLine.class, audioFormat);
+//    }
+
     private void setupAudioFormat() {
-        audioFormat = new AudioFormat(
-                AudioFormat.Encoding.PCM_SIGNED,
-                44100.0F,
-                16,
-                2,
-                4,
-                44100.0F,
-                false
-        );
+        audioFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
+                16000.0F,  // Change the sample rate to 16000 Hz
+                16,        // Sample size in bits
+                1,         // Mono channel (you can change it to 2 for stereo)
+                2,         // Frame size
+                16000.0F,  // Frame rate
+                false);    // Little-endian
         info = new DataLine.Info(TargetDataLine.class, audioFormat);
     }
 

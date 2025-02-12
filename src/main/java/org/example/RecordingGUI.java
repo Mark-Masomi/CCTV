@@ -11,6 +11,8 @@ public class RecordingGUI extends JFrame {
     private JLabel statusLabel;
     private JTextArea logArea;
     private VideoRecorder videoRecorder;
+    private JTextField ipCameraField;
+    private JComboBox<String> webcamComboBox;
 
     public RecordingGUI() {
         // Initialize components
@@ -19,12 +21,16 @@ public class RecordingGUI extends JFrame {
         statusLabel = new JLabel("Status: Idle");
         logArea = new JTextArea(10, 30);
         logArea.setEditable(false);
+        ipCameraField = new JTextField("Enter IP Camera URL", 20);
+        webcamComboBox = new JComboBox<>();
 
         // Set up the layout
         setLayout(new BorderLayout());
         JPanel controlPanel = new JPanel();
         controlPanel.add(startButton);
         controlPanel.add(stopButton);
+        controlPanel.add(ipCameraField);
+        controlPanel.add(webcamComboBox);
         add(controlPanel, BorderLayout.NORTH);
         add(statusLabel, BorderLayout.CENTER);
         add(new JScrollPane(logArea), BorderLayout.SOUTH);
@@ -34,6 +40,12 @@ public class RecordingGUI extends JFrame {
         CameraManager cameraManager = new CameraManager(recordingSession);
         AudioManager audioManager = new AudioManager(recordingSession);
         videoRecorder = new VideoRecorder(cameraManager, audioManager);
+
+        // Populate the JComboBox with available webcams
+        String[] webcams = getAvailableWebcams();
+        for (String webcam : webcams) {
+            webcamComboBox.addItem(webcam);
+        }
 
         // Add action listeners
         startButton.addActionListener(new ActionListener() {
@@ -57,10 +69,28 @@ public class RecordingGUI extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    private String[] getAvailableWebcams() {
+        // Example logic to populate with webcam indices
+        String[] webcams = new String[5]; // Adjust as needed
+        for (int i = 0; i < 5; i++) {
+            webcams[i] = "Webcam " + i;
+        }
+        return webcams;
+    }
+
     private void startRecording() {
         statusLabel.setText("Status: Recording...");
         logArea.append("Recording started...\n");
-        videoRecorder.startRecording();
+
+        String ipCameraUrl = ipCameraField.getText();
+        String selectedCamera = (String) webcamComboBox.getSelectedItem();
+
+        if (ipCameraUrl != null && !ipCameraUrl.isEmpty()) {
+            videoRecorder.startRecordingFromIP(ipCameraUrl); // Start IP camera
+        } else if (selectedCamera != null && !selectedCamera.isEmpty()) {
+            int webcamIndex = Integer.parseInt(selectedCamera.replaceAll("[^0-9]", ""));
+            videoRecorder.startRecordingFromLocal(webcamIndex); // Start local webcam
+        }
     }
 
     private void stopRecording() {
@@ -77,5 +107,4 @@ public class RecordingGUI extends JFrame {
             }
         });
     }
-
 }
